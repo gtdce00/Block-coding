@@ -22,5 +22,5 @@
   "numberOfTreasures": 15,
   "uiScale": 1,
   "adminPin": "",
-  "googleSheetsWebhookUrl": ""
+  "googleSheetsWebhookUrl": "https://script.google.com/macros/s/AKfycbzOHmCWjv7vffQ12dJKjC_htu16G8DtNrhwk1L6r2Lg6VtED4o4cJ7xLa9BsaVhHs5Y/exec"
 }

@@ -64,9 +64,11 @@ export class Game {
         delete override.gameTimeMinutes;
       }
       this.settings = { ...settings, ...override, scores: { ...settings.scores, ...(override.scores || {}) } };
-      if (!this.settings.googleSheetsWebhookUrl) {
-        this.settings.googleSheetsWebhookUrl = sheetsCfg?.webhookUrl || "";
-      }
+      this.settings.googleSheetsWebhookUrl =
+        this.settings.googleSheetsWebhookUrl
+        || settings.googleSheetsWebhookUrl
+        || sheetsCfg?.webhookUrl
+        || "";
       this.levels = levels.worlds;
       this.questions = new QuestionManager(questions);
     } catch (err) {
@@ -97,8 +99,8 @@ export class Game {
         this.hud.setScore(this.score.score);
       };
       this.ui.settings = new SettingsUI(this);
-      this.ui.menu = new MainMenu(this);
       this.applySettings(this.settings);
+      this.ui.menu = new MainMenu(this);
     } catch (err) {
       console.error(err);
       document.getElementById("loading-text").textContent = "สร้างฉากไม่สำเร็จ ลองรีเฟรชหน้าใหม่";

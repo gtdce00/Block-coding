@@ -104,12 +104,17 @@ export class Leaderboard {
     this.saveLocal([]);
   }
 
+  static sheetsReady() {
+    return this.sheets || (this.sheetsUrl || "").startsWith("https://script.google.com/");
+  }
+
   static pushSheets(row) {
     const url = this.sheetsUrl || "";
     if (!url.startsWith("https://script.google.com/")) return;
     fetch(url, {
       method: "POST",
       mode: "no-cors",
+      keepalive: true,
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(row)
     }).catch((err) => console.warn("[Leaderboard] sheets", err));
@@ -155,8 +160,7 @@ export class Leaderboard {
   }
 
   static sheetsNote() {
-    if (this.sheets) return "  •  ส่งคะแนนเข้า Google Sheets";
-    return "";
+    return this.sheetsReady() ? "  •  ส่งคะแนนเข้า Google Sheets" : "";
   }
 
   static async render(tbody, statusEl) {
