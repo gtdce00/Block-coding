@@ -7,11 +7,13 @@
 
 ผู้เล่นควบคุมหุ่นยนต์สำรวจป่า หาแสงทองจากกล่องสมบัติ แล้วเรียงบล็อกคำสั่งเพื่อปลดล็อกภารกิจ
 
-โคลนจาก GitHub:
+**เล่นบนเว็บ:** [https://gtdce00.github.io/Block-coding/](https://gtdce00.github.io/Block-coding/)
+
+โคลนมาเล่นบนเครื่อง:
 
 ```bash
-git clone https://github.com/OWNER/robot-mission-3d.git
-cd robot-mission-3d
+git clone https://github.com/gtdce00/Block-coding.git
+cd Block-coding
 python server.py
 ```
 
@@ -68,6 +70,9 @@ chmod +x setup.sh start-game.sh uninstall.sh
 ---
 
 ## 2. วิธีเปิดเกม
+
+**เล่นบนเว็บ (ไม่ต้องติดตั้ง):** เปิด [https://gtdce00.github.io/Block-coding/](https://gtdce00.github.io/Block-coding/) ด้วย Chrome หรือ Edge  
+กระดานคะแนนบนเว็บเก็บในเบราว์เซอร์เครื่องนั้น — ถ้าต้องการอันดับกลางทั้งห้อง ให้ใช้ `python server.py` บนเครื่องโฮสต์ตามวิธีที่ 3
 
 **ห้ามเปิด `index.html` ตรง ๆ ด้วย double-click / file://** เพราะเบราว์เซอร์จะบล็อกการโหลด JSON/โมดูล
 

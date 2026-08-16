@@ -24,7 +24,7 @@ export class MainMenu {
     const online = await Leaderboard.ping();
     el.textContent = online
       ? `กระดานออนไลน์พร้อมแล้ว — เครื่องอื่นเปิด ${Leaderboard.lanUrl || "URL ของเครื่องโฮสต์"}${Leaderboard.sheetsNote()}`
-      : `กระดานเครื่องนี้เท่านั้น — โฮสต์ต้องรัน python server.py เพื่อแชร์อันดับ${Leaderboard.sheetsNote()}`;
+      : `เล่นบนเว็บได้เลย — คะแนนเก็บในเบราว์เซอร์เครื่องนี้${Leaderboard.sheetsNote()}`;
     el.classList.toggle("online", online);
   }
 

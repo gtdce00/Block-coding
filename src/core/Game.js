@@ -72,7 +72,7 @@ export class Game {
     } catch (err) {
       console.error(err);
       document.getElementById("loading-text").textContent =
-        "โหลดข้อมูลไม่สำเร็จ — โปรดเปิดเกมด้วย Live Server (ดู README.md)";
+        "โหลดข้อมูลไม่สำเร็จ — เปิดเกมผ่านลิงก์เว็บ หรือ python server.py";
       return;
     }
 

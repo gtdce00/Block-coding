@@ -171,7 +171,7 @@ export class Leaderboard {
     if (statusEl) {
       statusEl.textContent = this.online
         ? `โหมดออนไลน์ (LAN) — ทุกเครื่องใช้กระดานเดียวกัน${this.lanUrl ? `  •  ${this.lanUrl}` : ""}${this.sheetsNote()}`
-        : `โหมดเครื่องนี้เท่านั้น — เปิดเกมด้วย python server.py บนเครื่องโฮสต์เพื่อแชร์อันดับ${this.sheetsNote()}`;
+        : `โหมดเว็บ — คะแนนเก็บในเบราว์เซอร์เครื่องนี้${this.sheetsNote()}`;
       statusEl.classList.toggle("online", this.online);
     }
     if (!rows.length) {
