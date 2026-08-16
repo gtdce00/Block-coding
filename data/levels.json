@@ -1,0 +1,148 @@
+{
+  "worlds": [
+    {
+      "id": 1,
+      "key": "forest",
+      "name": "Forest of Algorithms",
+      "nameTh": "ป่าแห่งอัลกอริทึม",
+      "subtitle": "Sequence • Direction • Algorithm",
+      "spawn": [0, 0, 18],
+      "checkpoint": [0, 0, 4],
+      "portal": [0, 0, -42],
+      "treasures": [
+        { "id": "t1", "questionId": "q001", "position": [5.5, 0, 6] },
+        { "id": "t2", "questionId": "q002", "position": [-5.5, 0, -10] },
+        { "id": "t3", "questionId": "q003", "position": [5.5, 0, -26] }
+      ],
+      "secret": { "id": "s1", "position": [-12, 0, 8] },
+      "coins": [
+        [0, 0, 12], [0, 0, 2], [0, 0, -6], [0, 0, -16],
+        [0, 0, -24], [0, 0, -34], [5.5, 0, 3], [-5.5, 0, -7]
+      ],
+      "monsters": [
+        { "id": "m1", "kind": "slime", "position": [4.2, 0, 1], "patrol": [[4.2, 1], [4.2, -5]] },
+        { "id": "m2", "kind": "slime", "position": [-4.2, 0, -16], "patrol": [[-4.2, -14], [-4.2, -22]] }
+      ]
+    },
+    {
+      "id": 2,
+      "key": "desert",
+      "name": "Autumn Loop Woods",
+      "nameTh": "ป่าใบไม้ผลัดแห่งลูป",
+      "subtitle": "Loop • Repeat • Pattern",
+      "spawn": [0, 0, 18],
+      "checkpoint": [0, 0, 4],
+      "portal": [0, 0, -42],
+      "treasures": [
+        { "id": "t4", "questionId": "q004", "position": [5.5, 0, 6] },
+        { "id": "t5", "questionId": "q005", "position": [-5.5, 0, -10] },
+        { "id": "t6", "questionId": "q006", "position": [5.5, 0, -26] }
+      ],
+      "secret": { "id": "s2", "position": [12, 0, 8] },
+      "coins": [
+        [0, 0, 12], [0, 0, 2], [0, 0, -6], [0, 0, -16],
+        [0, 0, -24], [0, 0, -34], [5.5, 0, 3], [-5.5, 0, -7]
+      ],
+      "monsters": [
+        { "id": "m3", "kind": "slime", "position": [4.2, 0, 1], "patrol": [[4.2, 1], [4.2, -6]] },
+        { "id": "m4", "kind": "beetle", "position": [-4.2, 0, -16], "patrol": [[-4.2, -12], [-4.2, -22]] },
+        { "id": "m5", "kind": "beetle", "position": [4.2, 0, -32], "patrol": [[4.2, -28], [4.2, -36]] }
+      ]
+    },
+    {
+      "id": 3,
+      "key": "valley",
+      "name": "Misty Condition Valley",
+      "nameTh": "หุบเขาหมอกแห่งเงื่อนไข",
+      "subtitle": "If • Then • Decision",
+      "spawn": [0, 0, 18],
+      "checkpoint": [0, 0, 4],
+      "portal": [0, 0, -42],
+      "treasures": [
+        { "id": "t7", "questionId": "q007", "position": [5.5, 0, 6] },
+        { "id": "t8", "questionId": "q008", "position": [-5.5, 0, -10] },
+        { "id": "t9", "questionId": "q009", "position": [5.5, 0, -26] }
+      ],
+      "secret": { "id": "s3", "position": [-12, 0, -18] },
+      "coins": [
+        [0, 0, 12], [0, 0, 2], [0, 0, -6], [0, 0, -16],
+        [0, 0, -24], [0, 0, -34], [5.5, 0, 3], [-5.5, 0, -7]
+      ],
+      "monsters": [
+        { "id": "m6", "kind": "beetle", "position": [4.2, 0, 2], "patrol": [[4.2, 2], [4.2, -6]] },
+        { "id": "m7", "kind": "beetle", "position": [-4.2, 0, -18], "patrol": [[-4.2, -14], [-4.2, -24]] }
+      ]
+    },
+    {
+      "id": 4,
+      "key": "volcano",
+      "name": "Burnt Debug Woods",
+      "nameTh": "ป่าไหม้ภูเขาไฟ",
+      "subtitle": "Debugging • Error • Analysis",
+      "spawn": [0, 0, 18],
+      "checkpoint": [0, 0, 4],
+      "portal": [0, 0, -42],
+      "treasures": [
+        { "id": "t10", "questionId": "q010", "position": [5.5, 0, 6] },
+        { "id": "t11", "questionId": "q011", "position": [-5.5, 0, -10] },
+        { "id": "t12", "questionId": "q012", "position": [5.5, 0, -26] }
+      ],
+      "secret": { "id": "s4", "position": [12, 0, -20] },
+      "coins": [
+        [0, 0, 12], [0, 0, 2], [0, 0, -6], [0, 0, -16],
+        [0, 0, -24], [0, 0, -34], [5.5, 0, 3], [-5.5, 0, -7]
+      ],
+      "monsters": [
+        { "id": "m8", "kind": "wolf", "position": [4.2, 0, 0], "patrol": [[4.2, 2], [4.2, -8]] },
+        { "id": "m9", "kind": "wolf", "position": [-4.2, 0, -20], "patrol": [[-4.2, -14], [-4.2, -28]] }
+      ]
+    },
+    {
+      "id": 5,
+      "key": "castle",
+      "name": "Enchanted Grove",
+      "nameTh": "ป่าเวทมนตร์",
+      "subtitle": "Algorithm Mastery",
+      "spawn": [0, 0, 18],
+      "checkpoint": [0, 0, 4],
+      "portal": [0, 0, -42],
+      "treasures": [
+        { "id": "t13", "questionId": "q013", "position": [5.5, 0, 6] },
+        { "id": "t14", "questionId": "q014", "position": [-5.5, 0, -10] },
+        { "id": "t15", "questionId": "q015", "position": [5.5, 0, -26] }
+      ],
+      "secret": { "id": "s5", "position": [-12, 0, 10] },
+      "coins": [
+        [0, 0, 12], [0, 0, 2], [0, 0, -6], [0, 0, -16],
+        [0, 0, -24], [0, 0, -34], [5.5, 0, 3], [-5.5, 0, -7]
+      ],
+      "monsters": [
+        { "id": "m10", "kind": "slime", "position": [4.2, 0, 1], "patrol": [[4.2, 1], [4.2, -5]] },
+        { "id": "m11", "kind": "beetle", "position": [-4.2, 0, -16], "patrol": [[-4.2, -12], [-4.2, -22]] },
+        { "id": "m12", "kind": "wolf", "position": [4.2, 0, -32], "patrol": [[4.2, -28], [4.2, -38]] }
+      ]
+    },
+    {
+      "id": 6,
+      "key": "boss",
+      "name": "Ancient Forest Guardian",
+      "nameTh": "ผู้พิทักษ์ป่าโบราณ",
+      "subtitle": "Final Coding Challenge",
+      "spawn": [0, 0, 16],
+      "checkpoint": [0, 0, 2],
+      "portal": [0, 0, -38],
+      "treasures": [
+        { "id": "tboss", "questionId": "q016", "position": [0, 0, -22], "isBoss": true }
+      ],
+      "secret": null,
+      "coins": [
+        [0, 0, 10], [0, 0, 2], [0, 0, -8], [5, 0, -14], [-5, 0, -14]
+      ],
+      "monsters": [
+        { "id": "boss", "kind": "guardian", "position": [0, 0, -20], "patrol": [[-3.5, -20], [3.5, -20], [0, -16]], "isBoss": true, "hits": 3, "speed": 2.6 },
+        { "id": "min1", "kind": "wolf", "position": [6, 0, -12], "patrol": [[6, -10], [6, -16]] },
+        { "id": "min2", "kind": "wolf", "position": [-6, 0, -12], "patrol": [[-6, -10], [-6, -16]] }
+      ]
+    }
+  ]
+}

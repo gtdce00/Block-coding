@@ -1,0 +1,5 @@
+Kenney Nature Kit + Pirate Kit
+CC0 1.0 Universal
+https://kenney.nl
+
+Used in this project: trees, rocks, tents, campfire, bushes, flowers, logs, fence, sign, chest, flag, crate.

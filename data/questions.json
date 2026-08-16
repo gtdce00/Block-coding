@@ -1,0 +1,520 @@
+{
+  "blocks": {
+    "MOVE_FORWARD": { "label": "เดินหน้า", "color": "move" },
+    "MOVE_BACKWARD": { "label": "ถอยหลัง", "color": "move" },
+    "TURN_LEFT": { "label": "เลี้ยวซ้าย", "color": "turn" },
+    "TURN_RIGHT": { "label": "เลี้ยวขวา", "color": "turn" },
+    "JUMP": { "label": "กระโดด", "color": "action" },
+    "REPEAT": { "label": "ทำซ้ำ", "color": "loop" },
+    "IF": { "label": "ถ้า", "color": "condition" },
+    "COLLECT": { "label": "เก็บ", "color": "action" },
+    "OPEN": { "label": "เปิด", "color": "action" },
+    "WAIT": { "label": "รอ", "color": "wait" }
+  },
+  "questions": [
+    {
+      "id": "q001",
+      "world": 1,
+      "treasure": 1,
+      "difficulty": "easy",
+      "type": "sequence",
+      "title": "เดินไปหาสมบัติ",
+      "question": "เรียงคำสั่งให้ Robot เดินไปยังสมบัติตามทางตรง",
+      "hint": "นับช่องว่างระหว่าง Robot กับเป้าหมาย แล้วใส่บล็อกเดินหน้าให้ครบ",
+      "explanation": "อัลกอริทึมแบบลำดับ (Sequence) คือการทำคำสั่งทีละขั้นตามลำดับ จากจุดเริ่มไปยังเป้าหมายโดยไม่ข้ามขั้น",
+      "availableBlocks": ["MOVE_FORWARD"],
+      "map": [
+        "########",
+        "#S....G#",
+        "########"
+      ],
+      "startDir": 1,
+      "solution": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q002",
+      "world": 1,
+      "treasure": 2,
+      "difficulty": "easy",
+      "type": "sequence",
+      "title": "เลือกเส้นทางที่ถูกต้อง",
+      "question": "มีกำแพงขวางทาง เลือกทางอ้อมแล้วเลี้ยวให้ถูกเพื่อถึงสมบัติ",
+      "hint": "ลองเลี้ยวซ้ายก่อน เดินขึ้นไป แล้วเลี้ยวขวาไปหาสมบัติ",
+      "explanation": "เมื่อทางตรงถูกบล็อก ต้องวางแผนเส้นทางใหม่ นี่คือการคิดแบบ Algorithm: แตกปัญหาเป็นก้าวเล็ก ๆ แล้วเรียงลำดับให้ถูก",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT"],
+      "map": [
+        "#######",
+        "#....G#",
+        "#.###.#",
+        "#S....#",
+        "#######"
+      ],
+      "startDir": 1,
+      "solution": [
+        { "type": "TURN_LEFT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "TURN_RIGHT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q003",
+      "world": 1,
+      "treasure": 3,
+      "difficulty": "easy",
+      "type": "algorithm",
+      "title": "สร้างเส้นทางไปเป้าหมาย",
+      "question": "วางอัลกอริทึมให้ Robot เดินอ้อมหินไปยังสมบัติ",
+      "hint": "ลองคิดเป็นรูปตัวแอล (L) หรือตัวยู (U) แล้วใส่เลี้ยวให้ตรงกับแผน",
+      "explanation": "Algorithm คือแผนทีละขั้น หากลำดับเลี้ยวผิด Robot จะหลงทาง การทดลองรันแล้วแก้เป็นวิธีคิดของโปรแกรมเมอร์",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT"],
+      "map": [
+        "########",
+        "#......#",
+        "#.##G..#",
+        "#.##.#.#",
+        "#S...#.#",
+        "########"
+      ],
+      "startDir": 1,
+      "solution": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "TURN_LEFT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q004",
+      "world": 2,
+      "treasure": 1,
+      "difficulty": "easy",
+      "type": "loop",
+      "title": "ทำซ้ำคำสั่ง",
+      "question": "ใช้บล็อกทำซ้ำ เพื่อเดินไปยังสมบัติโดยไม่ต้องวางเดินหน้าทีละช่อง",
+      "hint": "นับจำนวนช่อง แล้วใส่ในบล็อกทำซ้ำ",
+      "explanation": "Loop ช่วยให้ทำคำสั่งเดิมหลายครั้งโดยไม่ต้องคัดลอกบล็อกซ้ำ ๆ ทำให้โปรแกรมสั้นและอ่านง่าย",
+      "availableBlocks": ["MOVE_FORWARD", "REPEAT"],
+      "mustUse": ["REPEAT"],
+      "map": [
+        "##########",
+        "#S......G#",
+        "##########"
+      ],
+      "startDir": 1,
+      "solution": [
+        {
+          "type": "REPEAT",
+          "params": { "count": 7 },
+          "children": [{ "type": "MOVE_FORWARD" }]
+        }
+      ]
+    },
+    {
+      "id": "q005",
+      "world": 2,
+      "treasure": 2,
+      "difficulty": "normal",
+      "type": "loop",
+      "title": "ลดจำนวนบล็อกด้วย Loop",
+      "question": "ทางยาวมาก ใช้ Loop ให้เหลือบล็อกน้อยที่สุด แล้วเลี้ยวเข้าหาสมบัติ",
+      "hint": "ทำซ้ำเดินหน้า 7 ครั้ง เลี้ยวขวา แล้วเดินหน้าอีก 1 ครั้ง",
+      "explanation": "เมื่อเห็นแพทเทิร์นซ้ำ ให้ห่อด้วย Repeat แทนการวางบล็อกยาว ๆ นี่คือแนวคิด Abstraction เบื้องต้น",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT", "REPEAT"],
+      "mustUse": ["REPEAT"],
+      "maxBlocks": 5,
+      "map": [
+        "##########",
+        "#S.......#",
+        "########G#",
+        "##########"
+      ],
+      "startDir": 1,
+      "solution": [
+        {
+          "type": "REPEAT",
+          "params": { "count": 7 },
+          "children": [{ "type": "MOVE_FORWARD" }]
+        },
+        { "type": "TURN_RIGHT" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q006",
+      "world": 2,
+      "treasure": 3,
+      "difficulty": "normal",
+      "type": "loop",
+      "title": "เก็บ Energy หลายจุด",
+      "question": "เดินเก็บ Energy ให้ครบทุกชิ้น แล้วไปยังเป้าหมาย ใช้ Loop ช่วยได้",
+      "hint": "เก็บของบนช่องที่ยืนด้วยบล็อกเก็บ จากนั้นเดินต่อไปยังชิ้นถัดไป",
+      "explanation": "งานที่คล้ายกันหลายรอบ เช่น เดินแล้วเก็บ เหมาะกับ Loop เมื่อเก็บครบค่อยไปเป้าหมาย",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT", "COLLECT", "REPEAT"],
+      "map": [
+        "###########",
+        "#S.*.*.*.G#",
+        "###########"
+      ],
+      "startDir": 1,
+      "collectAll": true,
+      "solution": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "COLLECT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "COLLECT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "COLLECT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q007",
+      "world": 3,
+      "treasure": 1,
+      "difficulty": "normal",
+      "type": "condition",
+      "title": "ถ้ามีกุญแจ ให้เปิดประตู",
+      "question": "เก็บกุญแจ เดินไปที่ประตู แล้วใช้เงื่อนไข ถ้ามีกุญแจ ให้เปิดประตู",
+      "hint": "เก็บกุญแจก่อน ค่อยเดินไปประตู แล้วใส่บล็อกถ้า (มีกุญแจ) ตามด้วยเปิด",
+      "explanation": "If-Then ใช้เมื่อการกระทำขึ้นกับสถานะ เช่น มีกุญแจจึงเปิดประตูได้ โปรแกรมจะตัดสินใจเองตามเงื่อนไข",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT", "COLLECT", "OPEN", "IF"],
+      "mustUse": ["IF"],
+      "map": [
+        "##########",
+        "#S.K..D.G#",
+        "##########"
+      ],
+      "startDir": 1,
+      "solution": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "COLLECT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        {
+          "type": "IF",
+          "params": { "condition": "HAS_KEY" },
+          "children": [{ "type": "OPEN" }]
+        },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q008",
+      "world": 3,
+      "treasure": 2,
+      "difficulty": "normal",
+      "type": "condition",
+      "title": "เลือกเส้นทางตามเงื่อนไข",
+      "question": "ถ้าเจอกำแพงข้างหน้า ให้เลี้ยว แล้วเดินไปเป้าหมาย",
+      "hint": "เดินไปจนชิดกำแพง ใช้ถ้า (เจอกำแพง) แล้วเลี้ยวซ้าย",
+      "explanation": "เงื่อนไขช่วยให้ Robot ตอบสนองต่อสิ่งแวดล้อมได้ ไม่ต้องจำทุกก้าวแบบตายตัว",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT", "IF", "REPEAT"],
+      "mustUse": ["IF"],
+      "map": [
+        "#######",
+        "#G....#",
+        "####..#",
+        "#S...##",
+        "#######"
+      ],
+      "startDir": 1,
+      "solution": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        {
+          "type": "IF",
+          "params": { "condition": "WALL_AHEAD" },
+          "children": [{ "type": "TURN_LEFT" }]
+        },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "TURN_LEFT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q009",
+      "world": 3,
+      "treasure": 3,
+      "difficulty": "normal",
+      "type": "condition",
+      "title": "หลบสิ่งกีดขวาง",
+      "question": "มีเลเซอร์ขวางทาง กระโดดข้ามเลเซอร์แล้วไปยังเป้าหมาย",
+      "hint": "เดินไปช่องหน้าเลเซอร์ แล้วใช้กระโดดเพื่อข้าม",
+      "explanation": "เมื่อเจออันตราย ต้องเลือกการกระทำที่เหมาะกับสถานการณ์ การกระโดดข้ามคือการตัดสินใจตามสภาพแวดล้อม",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT", "JUMP", "IF"],
+      "map": [
+        "#########",
+        "#S..X..G#",
+        "#########"
+      ],
+      "startDir": 1,
+      "solution": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "JUMP" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q010",
+      "world": 4,
+      "treasure": 1,
+      "difficulty": "normal",
+      "type": "debugging",
+      "title": "ค้นหาบล็อกที่ผิด",
+      "question": "โค้ดนี้มีบล็อกที่ทำให้ Robot หลงทาง ลบบล็อกที่ผิดออกให้เหลือทางที่ถูก",
+      "hint": "ลองรันดูก่อน แล้วดูว่าเลี้ยวผิดตรงไหน",
+      "explanation": "Debug คือการหาจุดผิดแล้วแก้ ไม่ใช่เขียนใหม่ทั้งหมด สังเกตผลลัพธ์แล้วย้อนดูคำสั่งทีละขั้น",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT"],
+      "startBlocks": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "TURN_RIGHT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ],
+      "map": [
+        "########",
+        "#S....G#",
+        "########"
+      ],
+      "startDir": 1,
+      "solution": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q011",
+      "world": 4,
+      "treasure": 2,
+      "difficulty": "normal",
+      "type": "debugging",
+      "title": "แก้โค้ดที่ทำงานผิด",
+      "question": "จำนวนรอบของ Loop ผิด ทำให้ Robot ยังไม่ถึงเป้าหมาย จงแก้ให้ถูกต้อง",
+      "hint": "นับช่องจากจุดเริ่มถึงเป้าหมาย แล้วแก้ตัวเลขในทำซ้ำ",
+      "explanation": "บั๊กที่พบบ่อยคือค่าใน Loop ผิด ต้องนับข้อมูลจริงแล้วนำไปแก้พารามิเตอร์ ไม่ใช่เดา",
+      "availableBlocks": ["MOVE_FORWARD", "REPEAT", "TURN_LEFT", "TURN_RIGHT"],
+      "startBlocks": [
+        {
+          "type": "REPEAT",
+          "params": { "count": 2 },
+          "children": [{ "type": "MOVE_FORWARD" }]
+        }
+      ],
+      "map": [
+        "#########",
+        "#S.....G#",
+        "#########"
+      ],
+      "startDir": 1,
+      "solution": [
+        {
+          "type": "REPEAT",
+          "params": { "count": 6 },
+          "children": [{ "type": "MOVE_FORWARD" }]
+        }
+      ]
+    },
+    {
+      "id": "q012",
+      "world": 4,
+      "treasure": 3,
+      "difficulty": "normal",
+      "type": "debugging",
+      "title": "จัดลำดับคำสั่งใหม่",
+      "question": "บล็อกครบแล้วแต่เรียงผิด จงลากจัดลำดับใหม่ให้ Robot ถึงเป้าหมาย",
+      "hint": "ต้องเลี้ยวก่อนถึงจะเดินเข้าซอยได้",
+      "explanation": "ลำดับคำสั่งสำคัญมาก แม้ใช้บล็อกชุดเดียวกัน ถ้าสลับที่ผลลัพธ์จะต่าง นี่คือหัวใจของ Sequence",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT"],
+      "startBlocks": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "TURN_RIGHT" },
+        { "type": "MOVE_FORWARD" }
+      ],
+      "map": [
+        "######",
+        "#G...#",
+        "###..#",
+        "#S...#",
+        "######"
+      ],
+      "startDir": 1,
+      "solution": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "TURN_LEFT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "TURN_LEFT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q013",
+      "world": 5,
+      "treasure": 1,
+      "difficulty": "normal",
+      "type": "variable",
+      "title": "ใช้ตัวแปรจำนวนรอบ",
+      "question": "ตั้งค่าจำนวนรอบของ Loop ให้ตรงกับระยะทาง แล้วเดินไปสมบัติ",
+      "hint": "ระยะทางคือ 8 ช่อง ใส่ 8 ในบล็อกทำซ้ำ",
+      "explanation": "ตัวเลขใน Loop คือตัวแปรที่ควบคุมจำนวนรอบ เปลี่ยนค่านี้ได้โดยไม่ต้องเพิ่มบล็อก ทำให้โปรแกรมยืดหยุ่น",
+      "availableBlocks": ["MOVE_FORWARD", "REPEAT"],
+      "mustUse": ["REPEAT"],
+      "map": [
+        "###########",
+        "#S.......G#",
+        "###########"
+      ],
+      "startDir": 1,
+      "solution": [
+        {
+          "type": "REPEAT",
+          "params": { "count": 8 },
+          "children": [{ "type": "MOVE_FORWARD" }]
+        }
+      ]
+    },
+    {
+      "id": "q014",
+      "world": 5,
+      "treasure": 2,
+      "difficulty": "hard",
+      "type": "algorithm",
+      "title": "รวมหลายคำสั่ง",
+      "question": "ใช้เดินหน้า เลี้ยว และ Loop ร่วมกัน เพื่อเก็บ Energy แล้วไปเป้าหมาย",
+      "hint": "เก็บ Energy ระหว่างทาง อย่าลืมบล็อกเก็บเมื่อยืนบนเครื่องหมาย *",
+      "explanation": "โปรแกรมจริงมักผสม Sequence + Loop + Action เข้าด้วยกัน วางแผนทั้งเส้นทางและการเก็บของพร้อมกัน",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT", "COLLECT", "REPEAT"],
+      "map": [
+        "#########",
+        "#S.*....#",
+        "#.......#",
+        "#....*.G#",
+        "#########"
+      ],
+      "startDir": 1,
+      "collectAll": true,
+      "solution": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "COLLECT" },
+        { "type": "TURN_RIGHT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "TURN_LEFT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "COLLECT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q015",
+      "world": 5,
+      "treasure": 3,
+      "difficulty": "hard",
+      "type": "algorithm",
+      "title": "อัลกอริทึมสมบูรณ์",
+      "question": "เก็บกุญแจ เปิดประตู กระโดดข้ามเลเซอร์ แล้วไปยังเป้าหมาย",
+      "hint": "ลำดับคือ เก็บกุญแจ → ไปประตู → เปิด → กระโดดข้ามเลเซอร์ → เป้าหมาย",
+      "explanation": "อัลกอริทึมสมบูรณ์คือการรวมลำดับ เงื่อนไข และการกระทำพิเศษเป็นแผนเดียวที่ทำให้ภารกิจสำเร็จ",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT", "COLLECT", "OPEN", "JUMP", "IF", "REPEAT"],
+      "map": [
+        "###########",
+        "#S.K.D.X.G#",
+        "###########"
+      ],
+      "startDir": 1,
+      "solution": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "COLLECT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "OPEN" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "JUMP" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    },
+    {
+      "id": "q016",
+      "world": 6,
+      "treasure": 1,
+      "difficulty": "hard",
+      "type": "algorithm",
+      "title": "ผู้พิทักษ์โค้ด",
+      "question": "ภารกิจสุดท้าย: เก็บ Energy ให้ครบ 3 จุด เก็บกุญแจ เปิดประตู กระโดดข้ามเลเซอร์ แล้วไป Goal",
+      "hint": "สำรวจแผนที่ทีละส่วน: เก็บพลังงานให้ครบก่อน แล้วค่อยไปกุญแจ ประตู และเลเซอร์",
+      "explanation": "โปรแกรมเมอร์แก้โจทย์ใหญ่ด้วยการแบ่งเป็นงานย่อย แล้วประกอบเป็นอัลกอริทึมเดียว นี่คือ Coding Master!",
+      "availableBlocks": ["MOVE_FORWARD", "TURN_LEFT", "TURN_RIGHT", "COLLECT", "OPEN", "JUMP", "IF", "REPEAT", "WAIT"],
+      "isBoss": true,
+      "collectAll": true,
+      "map": [
+        "#################",
+        "#S.*.*.*.K.D.X.G#",
+        "#################"
+      ],
+      "startDir": 1,
+      "solution": [
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "COLLECT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "COLLECT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "COLLECT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "COLLECT" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "OPEN" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "JUMP" },
+        { "type": "MOVE_FORWARD" },
+        { "type": "MOVE_FORWARD" }
+      ]
+    }
+  ]
+}

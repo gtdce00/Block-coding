@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Local runtime data (do not publish student scores or webhook)
+data/leaderboard.json
+data/google_sheets.json
+
+# Local install copies
+*.log

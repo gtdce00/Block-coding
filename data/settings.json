@@ -1,0 +1,26 @@
+{
+  "gameTimeMinutes": 50,
+  "scores": {
+    "correct": 100,
+    "firstTryBonus": 50,
+    "treasure": 100,
+    "coin": 10,
+    "energy": 10,
+    "secretTreasure": 300,
+    "finalBoss": 500,
+    "monster": 40,
+    "bossHit": 80,
+    "wrong": -30,
+    "hint": -20
+  },
+  "difficulty": "easy",
+  "sound": true,
+  "music": true,
+  "fullscreen": false,
+  "showExplanation": true,
+  "numberOfWorlds": 5,
+  "numberOfTreasures": 15,
+  "uiScale": 1,
+  "adminPin": "",
+  "googleSheetsWebhookUrl": ""
+}

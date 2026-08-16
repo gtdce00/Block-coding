@@ -1,0 +1,9 @@
+{
+  "name": "robot-mission-3d",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Robot Mission 3D – Cyber Adventure: เกมผจญภัย 3D ผสม Block Coding สำหรับวันวิทยาศาสตร์",
+  "scripts": {
+    "start": "npx --yes serve -p 8080 ."
+  }
+}

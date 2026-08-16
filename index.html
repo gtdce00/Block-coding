@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robot Mission 3D – Forest Adventure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" href="assets/ui/icon.png" type="image/png" />
+  <link rel="icon" href="assets/ui/favicon.svg" type="image/svg+xml" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="game-root">
+    <canvas id="game-canvas" tabindex="0"></canvas>
+
+    <!-- LOADING -->
+    <section id="screen-loading" class="screen overlay">
+      <div class="panel glow-panel loading-panel">
+        <p class="eyebrow">FOREST ADVENTURE</p>
+        <h1 class="title-xl">ROBOT MISSION 3D</h1>
+        <p class="tagline">เดินทางในป่า • หาสมบัติ • แก้โค้ด • เปิดประตู</p>
+        <p id="loading-text" class="muted">กำลังโหลดป่าผจญภัย...</p>
+        <div class="progress-track">
+          <div id="loading-bar" class="progress-fill"></div>
+        </div>
+        <p id="loading-pct" class="mono">0%</p>
+      </div>
+    </section>
+
+    <!-- MAIN MENU -->
+    <section id="screen-menu" class="screen overlay hidden">
+      <div class="menu-layout">
+        <div class="menu-hero">
+          <p class="eyebrow">SCIENCE DAY COMPETITION</p>
+          <h1 class="title-xl">ROBOT MISSION 3D</h1>
+          <h2 class="title-sub">FOREST ADVENTURE</h2>
+          <p class="tagline">เดินทางในป่า • หาสมบัติ • แก้โค้ด • เปิดประตู</p>
+          <p id="net-status" class="muted">กำลังตรวจกระดานคะแนน...</p>
+        </div>
+        <nav class="menu-nav">
+          <button class="btn btn-primary" data-action="register">START MISSION</button>
+          <button class="btn" data-action="leaderboard">LEADERBOARD</button>
+          <button class="btn" data-action="howto">HOW TO PLAY</button>
+          <button class="btn" data-action="settings">SETTINGS</button>
+          <button class="btn" data-action="credits">CREDITS</button>
+        </nav>
+      </div>
+    </section>
+
+    <!-- REGISTER -->
+    <section id="screen-register" class="screen overlay hidden">
+      <form id="register-form" class="panel glow-panel form-panel">
+        <p class="eyebrow">PLAYER REGISTRATION</p>
+        <h2>เริ่มภารกิจ</h2>
+        <label>ชื่อ-นามสกุล
+          <input id="reg-name" name="name" required maxlength="60" autocomplete="name" placeholder="เช่น เด็กชายหุ่นยนต์ ใจดี" />
+        </label>
+        <div class="form-row">
+          <label>ชั้น
+            <select id="reg-grade" name="grade">
+              <option>ป.1</option>
+              <option>ป.2</option>
+              <option>ป.3</option>
+              <option>ป.4</option>
+              <option>ป.5</option>
+              <option selected>ป.6</option>
+              <option>ม.1</option>
+              <option>ม.2</option>
+              <option>ม.3</option>
+            </select>
+          </label>
+          <label>ห้อง
+            <input id="reg-room" name="room" required maxlength="10" placeholder="1" />
+          </label>
+        </div>
+        <label>โรงเรียน
+          <input id="reg-school" name="school" required maxlength="80" placeholder="โรงเรียน..." />
+        </label>
+        <div class="btn-row">
+          <button type="button" class="btn" data-action="menu">ย้อนกลับ</button>
+          <button type="submit" class="btn btn-primary">START MISSION</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- HOW TO PLAY -->
+    <section id="screen-howto" class="screen overlay hidden">
+      <div class="panel glow-panel wide-panel">
+        <p class="eyebrow">HOW TO PLAY</p>
+        <h2>วิธีเล่น</h2>
+        <div class="howto-grid">
+          <div>
+            <h3>ควบคุม Robot</h3>
+            <ul>
+              <li><kbd>W</kbd> เดินหน้า <kbd>S</kbd> ถอยหลัง</li>
+              <li><kbd>A</kbd> ซ้าย <kbd>D</kbd> ขวา</li>
+              <li><kbd>Shift</kbd> วิ่ง <kbd>Space</kbd> กระโดด</li>
+              <li><kbd>E</kbd> โต้ตอบ / เปิดสมบัติ</li>
+              <li>คลิกหน้าจอหนึ่งครั้งเพื่อล็อกกล้อง แล้วเลื่อนเมาส์เพื่อหันมุมมอง</li>
+              <li>เดินหน้า กล้องจะตามหลังตัวละครเมื่อไม่ได้ล็อกเมาส์</li>
+              <li><kbd>Esc</kbd> ปลดล็อกกล้องและหยุดชั่วคราว</li>
+            </ul>
+          </div>
+          <div>
+            <h3>ภารกิจ</h3>
+            <ul>
+              <li>เดินตามทางดินในป่า หาแสงทองจากกล่องสมบัติ</li>
+              <li>ดูเข็มทิศและดาวทองบนแผนที่มุมขวา</li>
+              <li>เข้าใกล้สมบัติแล้วกด E</li>
+              <li>เรียง Block Coding แล้วกด RUN CODE</li>
+              <li>ถ้าผิด จะมีเฉลยและคำอธิบาย</li>
+              <li>ไม่ลด HP และไม่ Game Over</li>
+              <li>เก็บสมบัติครบ 3 ชิ้นต่อโลก เพื่อเปิด Portal</li>
+              <li>มอนสเตอร์ในป่าจะไล่และผลักได้ แต่ไม่ลด HP</li>
+              <li>กระโดดลงบนหัวมอนสเตอร์เพื่อปราบ (+40 คะแนน)</li>
+              <li>โลกสุดท้ายมีบอส ผู้พิทักษ์ป่าโบราณ — กระโดด 3 ครั้งให้เซ็ง แล้วกด E เขียนโค้ด</li>
+              <li>แต่ละด่านมีเวลา 50 นาที (ตั้งค่าได้) เข้าด่านใหม่แล้วนาฬิกาเริ่มใหม่</li>
+              <li>แข่งกับเวลา และขึ้น Leaderboard</li>
+            </ul>
+          </div>
+        </div>
+        <button class="btn btn-primary" data-action="menu">ปิด</button>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="screen-settings" class="screen overlay hidden">
+      <form id="settings-form" class="panel glow-panel wide-panel settings-panel">
+        <p class="eyebrow">TEACHER / ADMIN SETTINGS</p>
+        <h2>ตั้งค่าการแข่งขัน</h2>
+        <div class="settings-grid">
+          <label>เวลาต่อด่าน (นาที)
+            <select id="set-time-preset">
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="50" selected>50</option>
+              <option value="60">60</option>
+              <option value="custom">กำหนดเอง</option>
+            </select>
+          </label>
+          <label>เวลาเอง (นาที)
+            <input id="set-time" type="number" min="1" max="120" value="50" />
+          </label>
+          <label>คะแนนถูก
+            <input id="set-correct" type="number" value="100" />
+          </label>
+          <label>หักคะแนนผิด
+            <input id="set-wrong" type="number" value="-30" />
+          </label>
+          <label>คะแนนสมบัติ
+            <input id="set-treasure" type="number" value="100" />
+          </label>
+          <label>สมบัติลับ
+            <input id="set-secret" type="number" value="300" />
+          </label>
+          <label>หักคะแนนคำใบ้
+            <input id="set-hint" type="number" value="-20" />
+          </label>
+          <label>ความยาก
+            <select id="set-difficulty">
+              <option value="easy">EASY</option>
+              <option value="normal">NORMAL</option>
+              <option value="hard">HARD</option>
+            </select>
+          </label>
+          <label>จำนวนโลก
+            <input id="set-worlds" type="number" min="1" max="6" value="5" />
+          </label>
+          <label>ขนาด UI
+            <input id="set-uiscale" type="range" min="0.85" max="1.25" step="0.05" value="1" />
+          </label>
+        </div>
+        <label class="span-all">ลิงก์ Google Sheets (Web App)
+          <input id="set-sheets-url" type="url" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off" />
+        </label>
+        <p class="muted sheets-hint">วาง URL จาก Deploy → Web app — คะแนนจะถูกส่งเข้าชีตเมื่อจบเกม ดูวิธีใน README.md</p>
+        <div class="check-row">
+          <label><input id="set-sound" type="checkbox" checked /> เสียงเอฟเฟกต์</label>
+          <label><input id="set-music" type="checkbox" checked /> เพลงประกอบ</label>
+          <label><input id="set-explain" type="checkbox" checked /> แสดงคำอธิบายเมื่อผิด</label>
+          <label><input id="set-fullscreen" type="checkbox" /> เต็มจอ</label>
+        </div>
+        <div class="btn-row wrap">
+          <button type="button" class="btn" data-action="save-settings">SAVE</button>
+          <button type="button" class="btn" data-action="reset-settings">RESET DEFAULT</button>
+          <button type="button" class="btn btn-danger" data-action="reset-leaderboard">RESET LEADERBOARD</button>
+          <button type="button" class="btn" data-action="test-sheets">ทดสอบส่งชีต</button>
+          <button type="button" class="btn btn-primary" data-action="menu">ปิด</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- CREDITS -->
+    <section id="screen-credits" class="screen overlay hidden">
+      <div class="panel glow-panel">
+        <p class="eyebrow">CREDITS</p>
+        <h2>Robot Mission 3D</h2>
+        <p>เกมผจญภัย 3D เพื่อการเรียนรู้ Block Coding<br />สำหรับการแข่งขันวันวิทยาศาสตร์</p>
+        <p class="muted">Three.js • WebGL • Low-Poly Forest Adventure</p>
+        <p>ดูรายละเอียด Asset ที่ <span class="mono">ASSET_CREDITS.md</span></p>
+        <button class="btn btn-primary" data-action="menu">ปิด</button>
+      </div>
+    </section>
+
+    <!-- LEADERBOARD -->
+    <section id="screen-leaderboard" class="screen overlay hidden">
+      <div class="panel glow-panel wide-panel">
+        <p class="eyebrow">LEADERBOARD</p>
+        <h2>อันดับคะแนน</h2>
+        <p id="leaderboard-status" class="muted">กำลังโหลดอันดับ...</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th><th>ชื่อ</th><th>ชั้น</th><th>คะแนน</th><th>สมบัติ</th><th>ถูก</th><th>ผิด</th><th>เวลา</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-body"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-primary" data-action="menu">ปิด</button>
+      </div>
+    </section>
+
+    <!-- HUD -->
+    <section id="hud" class="hud hidden">
+      <div class="hud-top">
+        <div class="hud-card">
+          <span class="hud-label">PLAYER</span>
+          <strong id="hud-name">---</strong>
+        </div>
+        <div class="hud-timer hud-card">
+          <span class="hud-label">TIME</span>
+          <strong id="hud-time" class="mono">50:00</strong>
+        </div>
+        <div class="hud-card hud-right">
+          <span class="hud-label">SCORE</span>
+          <strong id="hud-score" class="mono">0000</strong>
+        </div>
+      </div>
+      <div class="hud-bottom">
+        <div class="hud-card">
+          <span id="hud-world">WORLD 1</span>
+          <span id="hud-treasure">TREASURE 0/3</span>
+        </div>
+        <div class="hud-card">
+          <span>COIN <strong id="hud-coins">0</strong></span>
+          <span>CODE <strong id="hud-code">0/0</strong></span>
+          <span id="hud-monsters" class="hidden">MONSTER 0/0</span>
+        </div>
+      </div>
+      <canvas id="minimap" width="180" height="180" aria-label="Mini map"></canvas>
+      <div id="compass" class="compass hidden" aria-label="เข็มทิศสมบัติ">
+        <div class="compass-ring">
+          <div id="compass-needle" class="compass-needle"></div>
+        </div>
+        <span class="compass-label">กล่องสมบัติ</span>
+        <strong id="compass-dist">--</strong>
+      </div>
+      <div id="look-hint" class="look-hint hidden">คลิกหน้าจอเพื่อล็อกกล้อง • เลื่อนเมาส์เพื่อหันมุมมอง</div>
+      <div id="boss-bar" class="boss-bar hidden">
+        <span id="boss-hp-label">ผู้พิทักษ์ป่าโบราณ</span>
+        <div class="boss-hp-track"><div id="boss-hp-fill" class="boss-hp-fill"></div></div>
+      </div>
+      <div id="interact-prompt" class="interact-prompt hidden">
+        <kbd>E</kbd> <span id="interact-text">INTERACT</span>
+      </div>
+      <div id="toast-layer" class="toast-layer"></div>
+      <div id="world-banner" class="world-banner hidden"></div>
+    </section>
+
+    <!-- PAUSE -->
+    <section id="screen-pause" class="screen overlay hidden">
+      <div class="panel glow-panel">
+        <h2>PAUSE</h2>
+        <p class="muted">ภารกิจถูกหยุดชั่วคราว เวลายังเดินต่อเมื่อกลับไปเล่น</p>
+        <div class="menu-nav">
+          <button class="btn btn-primary" data-action="resume">RESUME</button>
+          <button class="btn" data-action="howto">HOW TO PLAY</button>
+          <button class="btn" data-action="quit-menu">MAIN MENU</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CODING CHALLENGE -->
+    <section id="screen-coding" class="screen overlay coding-screen hidden">
+      <div class="coding-shell">
+        <header class="coding-head">
+          <div>
+            <p class="eyebrow" id="coding-world">WORLD 1 • TREASURE 1</p>
+            <h2 id="coding-title">ภารกิจโค้ด</h2>
+            <p id="coding-question">เรียงบล็อกให้ Robot ทำงานสำเร็จ</p>
+          </div>
+          <div class="coding-tools">
+            <button class="btn btn-small" id="btn-hint">HINT</button>
+            <button class="btn btn-small" id="btn-clear">ล้างบล็อก</button>
+            <button class="btn btn-primary" id="btn-run">RUN CODE</button>
+            <button class="btn btn-small" id="btn-close-coding">ปิด</button>
+          </div>
+        </header>
+        <div class="coding-body">
+          <aside class="palette" id="block-palette"></aside>
+          <section class="workspace-wrap">
+            <p class="workspace-label">พื้นที่จัดบล็อก — ลากหรือคลิกเพื่อเพิ่ม</p>
+            <div id="block-workspace" class="workspace"></div>
+          </section>
+          <section class="preview-wrap">
+            <p class="workspace-label">PREVIEW ROBOT</p>
+            <canvas id="code-preview" width="360" height="360"></canvas>
+            <p id="coding-status" class="coding-status">จัดบล็อกแล้วกด RUN CODE</p>
+          </section>
+        </div>
+      </div>
+      <div id="coding-result" class="coding-result hidden"></div>
+    </section>
+
+    <!-- PORTAL -->
+    <section id="screen-portal" class="screen overlay hidden">
+      <div class="panel glow-panel">
+        <p class="eyebrow" id="portal-eyebrow">WORLD COMPLETE</p>
+        <h2 id="portal-title">เข้าสู่โลกถัดไป</h2>
+        <p id="portal-text" class="muted">Portal เปิดแล้ว</p>
+        <button class="btn btn-primary" id="btn-enter-world">ENTER NEXT WORLD</button>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section id="screen-result" class="screen overlay hidden">
+      <div class="panel glow-panel result-panel">
+        <p class="eyebrow">MISSION COMPLETE</p>
+        <h2 id="result-rank">S RANK</h2>
+        <p id="result-name" class="title-sub">ผู้เล่น</p>
+        <div class="result-score mono" id="result-score">0</div>
+        <div class="result-grid" id="result-stats"></div>
+        <div class="btn-row">
+          <button class="btn btn-primary" data-action="leaderboard">LEADERBOARD</button>
+          <button class="btn" data-action="menu">MAIN MENU</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
