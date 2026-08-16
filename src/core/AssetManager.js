@@ -83,6 +83,16 @@ export class AssetManager {
         url,
         (gltf) => {
           clearTimeout(timer);
+          gltf.scene.traverse((c) => {
+            const mats = c.isMesh ? (Array.isArray(c.material) ? c.material : [c.material]) : [];
+            mats.forEach((m) => {
+              if (!m?.map) return;
+              m.map.magFilter = THREE.NearestFilter;
+              m.map.minFilter = THREE.NearestFilter;
+              m.map.generateMipmaps = false;
+              m.map.needsUpdate = true;
+            });
+          });
           resolve(gltf);
         },
         undefined,

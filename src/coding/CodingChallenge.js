@@ -17,6 +17,7 @@ export class CodingChallenge {
     this.running = false;
     this.onFinish = null;
     this.hintUsed = false;
+    this.showExplanation = false;
 
     document.getElementById("btn-run").onclick = () => this.run();
     document.getElementById("btn-clear").onclick = () => this.editor.clear();
@@ -65,8 +66,10 @@ export class CodingChallenge {
   showResult(result) {
     const box = document.getElementById("coding-result");
     box.classList.remove("hidden");
-    const solutionHtml = this.question.solution
-      ? `<p><strong>คำตอบที่ถูกต้องคือ</strong></p><p>${formatSolution(this.question.solution)}</p>`
+    const teach = this.showExplanation && this.question.solution;
+    const solutionHtml = teach
+      ? `<p><strong>คำตอบที่ถูกต้องคือ</strong></p><p>${formatSolution(this.question.solution)}</p>
+         <p><strong>เพราะว่า</strong> ${this.question.explanation}</p>`
       : "";
     if (result.ok) {
       this.audio.play("correct");
@@ -83,7 +86,6 @@ export class CodingChallenge {
         <p>ลองสังเกตลำดับคำสั่งอีกครั้ง</p>
         <p>${result.errors.map((e) => `• ${e}`).join("<br>")}</p>
         ${solutionHtml}
-        <p><strong>เพราะว่า</strong> ${this.question.explanation}</p>
         <div class="btn-row"><button class="btn btn-primary" id="coding-retry">ลองใหม่</button></div>
       </div>`;
       document.getElementById("coding-retry").onclick = () => {

@@ -52,12 +52,14 @@ export class Game {
     this._bindUnlock();
     this.assets.onProgress = (p, text) => this._setLoading(p * 0.7, text);
     try {
-      const [settings, levels, questions, sheetsCfg] = await Promise.all([
+      const [settings, levels, questions] = await Promise.all([
         fetchJSON("data/settings.json"),
         fetchJSON("data/levels.json"),
-        QuestionLoader.load(),
-        fetchJSON("data/google_sheets.json").catch(() => ({ webhookUrl: "" }))
+        QuestionLoader.load()
       ]);
+      const sheetsCfg = settings.googleSheetsWebhookUrl
+        ? { webhookUrl: "" }
+        : await fetchJSON("data/google_sheets.json").catch(() => ({ webhookUrl: "" }));
       this.defaultSettings = settings;
       const override = SettingsUI.loadOverride() || {};
       if (override.gameTimeMinutes === 15 && settings.gameTimeMinutes >= 50) {
@@ -117,6 +119,7 @@ export class Game {
     this.audio.setSfx(s.sound);
     this.audio.setMusic(s.music);
     Leaderboard.sheetsUrl = s.googleSheetsWebhookUrl || "";
+    if (this.coding) this.coding.showExplanation = !!s.showExplanation;
     if (s.fullscreen) document.documentElement.requestFullscreen?.().catch(() => {});
   }
 
@@ -457,7 +460,7 @@ export class Game {
     this.timer?.stop();
     this.input.setEnabled(false);
     this.audio.play("complete");
-    this._recordScore(reason);
+    void this._recordScore(reason);
     const used = (this.timer?.total || 0) - (this.timer?.left || 0);
     const rank = rankOf(this.score?.score || 0);
     try {

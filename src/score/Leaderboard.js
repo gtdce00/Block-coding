@@ -8,7 +8,17 @@ export class Leaderboard {
   static sheets = false;
   static sheetsUrl = "";
 
+  static isLanHost() {
+    const host = location.hostname;
+    return host === "localhost" || host === "127.0.0.1" || /^\d{1,3}(\.\d{1,3}){3}$/.test(host);
+  }
+
   static async ping() {
+    if (!this.isLanHost()) {
+      this.online = false;
+      this.lanUrl = "";
+      return false;
+    }
     try {
       const res = await fetch(STATUS, { cache: "no-store" });
       if (!res.ok) {
